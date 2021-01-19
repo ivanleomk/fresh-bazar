@@ -9,7 +9,7 @@ import { PropTypes } from "prop-types";
 
 const FoodCard = ({ img, price, name, quantity, tags }) => {
   return (
-    <li className="col-span-1 hover:shadow-md hover:cursor-pointer cursor-pointer p-4">
+    <li className="col-span-3 lg:col-span-1 hover:shadow-md hover:cursor-pointer cursor-pointer p-4">
       <Image src={img} width={300} height={300} />
       <div className="mx-4">
         <div className="flex">
