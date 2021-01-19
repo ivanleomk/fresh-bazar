@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Heading from "./Heading";
 import Button from "./Button";
+
 const Header = () => {
   return (
     <div
