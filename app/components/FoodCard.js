@@ -29,6 +29,7 @@ const FoodCard = ({ img, price, name, quantity }) => {
           </svg>
         </div>
       </div>
+      <Button text="Add to Cart" emphasis={true} />
     </li>
   );
 };
