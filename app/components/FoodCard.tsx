@@ -1,10 +1,13 @@
 import Image from "next/image";
 import React from "react";
+import { items } from "../constants/items";
 import Button from "./Button";
 import Heading from "./Heading";
 import SubHeading from "./SubHeading";
+import Tags from "./Tags";
+import { PropTypes } from "prop-types";
 
-const FoodCard = ({ img, price, name, quantity }) => {
+const FoodCard = ({ img, price, name, quantity, tags }) => {
   return (
     <li className="col-span-1 hover:shadow-md hover:cursor-pointer cursor-pointer p-4">
       <Image src={img} width={300} height={300} />
@@ -29,9 +32,20 @@ const FoodCard = ({ img, price, name, quantity }) => {
           </svg>
         </div>
       </div>
+      {tags.map((item) => (
+        <Tags text={item} />
+      ))}
       <Button text="Add to Cart" emphasis={true} />
     </li>
   );
+};
+
+FoodCard.PropTypes = {
+  img: PropTypes.String,
+  price: PropTypes.Number,
+  name: PropTypes.String,
+  quantity: PropTypes.String,
+  tags: PropTypes.arrayOf(String),
 };
 
 export default FoodCard;

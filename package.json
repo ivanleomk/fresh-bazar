@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.1.5",
@@ -13,9 +16,19 @@
     "@emotion/styled": "^11.0.0",
     "@fullhuman/postcss-purgecss": "^4.0.0",
     "@n8tb1t/use-scroll-position": "^2.0.3",
+    "@types/enzyme": "^3.10.8",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/jest": "^26.0.20",
     "autoprefixer": "^10.2.1",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^26.6.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "clsx": "^1.1.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
     "framer-motion": "^3.2.1",
+    "jest": "^26.6.3",
     "next": "10.0.5",
     "next-compose-plugins": "^2.2.1",
     "next-images": "^1.6.2",
@@ -23,6 +36,12 @@
     "postcss-cli": "^8.3.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "tailwindcss": "^2.0.2"
+    "tailwindcss": "^2.0.2",
+    "ts-jest": "^26.4.4"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.21",
+    "@types/react": "^17.0.0",
+    "typescript": "^4.1.3"
   }
 }

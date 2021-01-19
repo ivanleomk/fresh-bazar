@@ -1,6 +1,7 @@
 import React from "react";
 import SubHeading from "./SubHeading";
 import clsx from "clsx";
+import { PropTypes } from "prop-types";
 
 const classes = {
   buttonActive:
@@ -19,6 +20,11 @@ const CategoryLink = ({ selected, text, onClickHandler }) => {
       <SubHeading text={text} />
     </button>
   );
+};
+
+CategoryLink.propTypes = {
+  selected: PropTypes.Boolean,
+  text: PropTypes.String,
 };
 
 export default CategoryLink;
