@@ -1,7 +1,4 @@
-import { GroceryOrderItem } from "../types";
-import { GroceryOrderPayload } from "../types/index";
-
-function orderReducer(state: GroceryOrderItem[], action: GroceryOrderPayload) {
+function orderReducer(state, action) {
   switch (action.type) {
     case "ADD_ITEM":
       return state.concat(action.payload);

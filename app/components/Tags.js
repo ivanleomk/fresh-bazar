@@ -1,6 +1,6 @@
 import React from "react";
 
-const Tags: React.FC<{ text: string }> = ({ text }) => {
+const Tags = ({ text }) => {
   return (
     <span
       style={{

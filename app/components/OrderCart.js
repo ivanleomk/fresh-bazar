@@ -1,8 +1,6 @@
 import React from "react";
 
-interface OrderCartProps {}
-
-export const OrderCart: React.FC<OrderCartProps> = ({}) => {
+export const OrderCart = ({}) => {
   return (
     <>
       <div className="pb-1 sm:pb-6">

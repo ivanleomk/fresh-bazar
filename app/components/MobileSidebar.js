@@ -8,10 +8,7 @@ import {
 import React, { useContext } from "react";
 import { OrderCart } from "./OrderCart";
 
-const MobileSidebar: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
-  isOpen,
-  onClose,
-}) => {
+const MobileSidebar = ({ isOpen, onClose }) => {
   return (
     <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />

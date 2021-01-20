@@ -10,16 +10,7 @@ import {
 import CategoryLink from "./CategoryLink";
 import { GroceryItem } from "../types/index";
 
-interface MobileCategoriesProps {
-  categories: string[];
-  isOpen: boolean;
-  onClose: () => void;
-  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
-  selectedCategory: string;
-  items: GroceryItem[];
-}
-
-export const MobileCategories: React.FC<MobileCategoriesProps> = ({
+export const MobileCategories = ({
   onClose,
   isOpen,
   setSelectedCategory,

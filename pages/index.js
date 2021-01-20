@@ -29,13 +29,13 @@ import {
 } from "../app/constants/breakpoints";
 
 export default function Home() {
-  const [selectedCategory, setSelectedCategory] = React.useState<string>("");
-  const [categories, setCategories] = React.useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = React.useState("");
+  const [categories, setCategories] = React.useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   let { width } = useWindowSize();
 
   useEffect(() => {
-    const tags = extract_tags_from_list(items)!;
+    const tags = extract_tags_from_list(items);
     setCategories(tags);
   }, []);
 
@@ -120,10 +120,10 @@ export default function Home() {
             <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-6">
               {items
                 .filter(
-                  (item: GroceryItem) =>
+                  (item) =>
                     !selectedCategory || item.tags.includes(selectedCategory)
                 )
-                .map((item: GroceryItem) => (
+                .map((item) => (
                   <FoodCard
                     tags={item.tags}
                     name={item.name}
