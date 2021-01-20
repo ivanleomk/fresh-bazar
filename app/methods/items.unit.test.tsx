@@ -9,7 +9,7 @@ const items = [
     name: "Blueberries",
     img:
       "https://res.cloudinary.com/redq-inc/image/upload/v1589614570/pickbazar/grocery/BabySpinach_xronqz.jpg",
-    price: "1.50",
+    price: 1.5,
     quantity: "300g",
     tags: ["Healthy Eating"],
   },
@@ -17,7 +17,7 @@ const items = [
     name: "Blueberries",
     img:
       "https://res.cloudinary.com/redq-inc/image/upload/v1589614570/pickbazar/grocery/BabySpinach_xronqz.jpg",
-    price: "1.50",
+    price: 1.5,
     quantity: "300g",
     tags: ["Healthy Eating"],
   },
@@ -32,7 +32,7 @@ const items2 = [
     name: "Blueberries",
     img:
       "https://res.cloudinary.com/redq-inc/image/upload/v1589614570/pickbazar/grocery/BabySpinach_xronqz.jpg",
-    price: "1.50",
+    price: 1.5,
     quantity: "300g",
     tags: ["Healthy Eating"],
   },
@@ -40,7 +40,7 @@ const items2 = [
     name: "Blueberries",
     img:
       "https://res.cloudinary.com/redq-inc/image/upload/v1589614570/pickbazar/grocery/BabySpinach_xronqz.jpg",
-    price: "1.50",
+    price: 1.5,
     quantity: "300g",
     tags: ["Stem Vegetables"],
   },

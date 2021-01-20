@@ -1,7 +1,7 @@
 import React from "react";
 import SubHeading from "./SubHeading";
 import clsx from "clsx";
-import { PropTypes } from "prop-types";
+import PropTypes from "prop-types";
 
 const classes = {
   buttonActive:
@@ -10,7 +10,11 @@ const classes = {
     "flex items-start px-4 py-6 bg-white mt-10 rounded-lg focus:outline-none",
 };
 
-const CategoryLink = ({ selected, text, onClickHandler }) => {
+const CategoryLink: React.FC<{
+  selected: boolean;
+  text: string;
+  onClickHandler: any;
+}> = ({ selected, text, onClickHandler }) => {
   return (
     <button
       type="button"
@@ -20,11 +24,6 @@ const CategoryLink = ({ selected, text, onClickHandler }) => {
       <SubHeading text={text} />
     </button>
   );
-};
-
-CategoryLink.propTypes = {
-  selected: PropTypes.Boolean,
-  text: PropTypes.String,
 };
 
 export default CategoryLink;

@@ -5,17 +5,15 @@ import {
   DrawerOverlay,
   DrawerHeader,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useContext } from "react";
 import { OrderCart } from "./OrderCart";
 
-const MobileSidebar = ({ isOpen, onClose }) => {
+const MobileSidebar: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
+  isOpen,
+  onClose,
+}) => {
   return (
-    <Drawer
-      placement="left"
-      onClose={onClose}
-      isOpen={isOpen}
-      className="h-screen"
-    >
+    <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
       <DrawerContent>
         <DrawerHeader>

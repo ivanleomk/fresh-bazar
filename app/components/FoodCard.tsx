@@ -5,10 +5,24 @@ import Button from "./Button";
 import Heading from "./Heading";
 import SubHeading from "./SubHeading";
 import Tags from "./Tags";
-import { PropTypes } from "prop-types";
+import PropTypes from "prop-types";
 import { Center } from "@chakra-ui/react";
 
-const FoodCard = ({ img, price, name, quantity, tags }) => {
+interface FoodCardProps {
+  img: string;
+  price: number;
+  name: string;
+  quantity: string;
+  tags: string[];
+}
+
+const FoodCard: React.FC<FoodCardProps> = ({
+  img,
+  price,
+  name,
+  quantity,
+  tags,
+}) => {
   return (
     <li className="col-span-2 hover:shadow-md hover:cursor-pointer cursor-pointer p-4">
       <Center>
@@ -56,14 +70,6 @@ const FoodCard = ({ img, price, name, quantity, tags }) => {
       <Button text="Add to Cart" emphasis={true} />
     </li>
   );
-};
-
-FoodCard.PropTypes = {
-  img: PropTypes.String,
-  price: PropTypes.Number,
-  name: PropTypes.String,
-  quantity: PropTypes.String,
-  tags: PropTypes.arrayOf(String),
 };
 
 export default FoodCard;

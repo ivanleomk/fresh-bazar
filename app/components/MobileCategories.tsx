@@ -8,10 +8,15 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import CategoryLink from "./CategoryLink";
+import { GroceryItem } from "../types/index";
 
 interface MobileCategoriesProps {
   categories: string[];
-  isOpen: Boolean;
+  isOpen: boolean;
+  onClose: () => void;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
+  selectedCategory: string;
+  items: GroceryItem[];
 }
 
 export const MobileCategories: React.FC<MobileCategoriesProps> = ({
@@ -50,7 +55,7 @@ export const MobileCategories: React.FC<MobileCategoriesProps> = ({
         <DrawerBody>
           <div className="bg-white col-span-2">
             <div className="mx-6 my-4">
-              <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
+              <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
                 Categories
               </h2>
 

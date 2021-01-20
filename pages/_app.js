@@ -1,8 +1,11 @@
+//Static File Imports
 import "../styles/globals.css";
 import "../styles/tailwind.css";
-import { ChakraProvider } from "@chakra-ui/react";
+
+//Component Imports
 import Head from "next/head";
 import Header from "../app/components/Header";
+import { ChakraProvider } from "@chakra-ui/react";
 
 function MyApp({ Component, pageProps }) {
   return (

@@ -1,7 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-const Tags = ({ text }) => {
+const Tags: React.FC<{ text: string }> = ({ text }) => {
   return (
     <span
       style={{
@@ -13,7 +12,5 @@ const Tags = ({ text }) => {
     </span>
   );
 };
-Tags.PropTypes = {
-  text: String,
-};
+
 export default Tags;

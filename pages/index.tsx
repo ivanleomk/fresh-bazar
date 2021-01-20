@@ -12,7 +12,7 @@ import SubHeading from "../app/components/SubHeading";
 import Button from "../app/components/Button";
 import CategoryLink from "../app/components/CategoryLink";
 import FoodCard from "../app/components/FoodCard";
-import { MobileHeading } from "../app/components/MobileHeading";
+import { MobileCategories } from "../app/components/MobileCategories";
 
 //Importing Types
 import { GroceryItem } from "../app/types/index";
@@ -27,20 +27,16 @@ import {
   SMALL_LAPTOP_BREAKPOINT,
   TABLET_BREAKPOINT,
 } from "../app/constants/breakpoints";
-import { MobileCategories } from "../app/components/MobileCategories";
 
 export default function Home() {
-  const [selectedCategory, setSelectedCategory] = React.useState<String | null>(
-    null
-  );
-  const [categories, setCategories] = React.useState<GroceryItem[]>([]);
+  const [selectedCategory, setSelectedCategory] = React.useState<string>("");
+  const [categories, setCategories] = React.useState<string[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   let { width } = useWindowSize();
 
   useEffect(() => {
-    const tags = extract_tags_from_list(items);
+    const tags = extract_tags_from_list(items)!;
     setCategories(tags);
-    setSelectedCategory(tags[0]);
   }, []);
 
   return (
@@ -53,12 +49,12 @@ export default function Home() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          zIndex: "30",
+          zIndex: 1,
         }}
       >
         <span
           onClick={onOpen}
-          class="bg-white px-4 py-2  text-xl rounded-full text-indigo-500 border border-indigo-500"
+          className="bg-white px-4 py-2  text-xl rounded-full text-indigo-500 border border-indigo-500"
         >
           Filter Produce
           <MobileCategories
@@ -103,7 +99,7 @@ export default function Home() {
             <>
               <div className="bg-white col-span-2">
                 <div className="mx-6 my-4">
-                  <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
+                  <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
                     Categories
                   </h2>
 
@@ -111,7 +107,7 @@ export default function Home() {
                     {categories.map((item) => (
                       <CategoryLink
                         text={item}
-                        selected={selectedCategory == item}
+                        selected={item == selectedCategory}
                         onClickHandler={() => setSelectedCategory(item)}
                       />
                     ))}

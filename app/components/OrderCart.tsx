@@ -5,24 +5,24 @@ interface OrderCartProps {}
 export const OrderCart: React.FC<OrderCartProps> = ({}) => {
   return (
     <>
-      <div class="pb-1 sm:pb-6">
+      <div className="pb-1 sm:pb-6">
         <a
           href="#"
-          class="bg-gray-100 text-gray-900 group flex items-center px-3 py-2 text-sm font-medium rounded-md"
+          className="bg-gray-100 text-gray-900 group flex items-center px-3 py-2 text-sm font-medium rounded-md"
           aria-current="page"
         >
           Store
         </a>
         <a
           href="#"
-          class=" text-gray-900 group flex items-center px-3 py-2 text-sm font-medium rounded-md"
+          className=" text-gray-900 group flex items-center px-3 py-2 text-sm font-medium rounded-md"
           aria-current="page"
         >
           Order History
         </a>
         <a
           href="#"
-          class=" text-gray-900 group flex items-center px-3 py-2 text-sm font-medium rounded-md"
+          className=" text-gray-900 group flex items-center px-3 py-2 text-sm font-medium rounded-md"
           aria-current="page"
         >
           Settings

@@ -1,16 +1,10 @@
 import React from "react";
-import { PropTypes } from "prop-types";
+import PropTypes from "prop-types";
 
 interface MobileHeadingProps {
-  text: PropTypes.string;
+  text: string;
 }
 
 export const MobileHeading: React.FC<MobileHeadingProps> = ({ text }) => {
-  return (
-    <div
-      style={{ fontFamily: "Poppins", fontWeight: "600px", fontSize: "36px" }}
-    >
-      {text}
-    </div>
-  );
+  return <div style={{ fontFamily: "Poppins", fontSize: "36px" }}>{text}</div>;
 };
