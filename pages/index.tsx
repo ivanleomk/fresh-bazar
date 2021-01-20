@@ -1,5 +1,10 @@
 //Library Imports
 import React, { useState, useEffect } from "react";
+import {
+  Center,
+  useDisclosure,
+  Button as ChakraButton,
+} from "@chakra-ui/react";
 
 //Component Imports
 import Heading from "../app/components/Heading";
@@ -18,13 +23,18 @@ import useWindowSize from "../app/hooks/useWindowDimensions";
 
 //Mocking Data
 import { items } from "../app/constants/items";
-import { TABLET_BREAKPOINT } from "../app/constants/breakpoints";
+import {
+  SMALL_LAPTOP_BREAKPOINT,
+  TABLET_BREAKPOINT,
+} from "../app/constants/breakpoints";
+import { MobileCategories } from "../app/components/MobileCategories";
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = React.useState<String | null>(
     null
   );
   const [categories, setCategories] = React.useState<GroceryItem[]>([]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   let { width } = useWindowSize();
 
   useEffect(() => {
@@ -35,6 +45,33 @@ export default function Home() {
 
   return (
     <>
+      <div
+        style={{
+          position: "fixed",
+          bottom: "40px",
+          width: "100vw",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: "30",
+        }}
+      >
+        <span
+          onClick={onOpen}
+          class="bg-white px-4 py-2  text-xl rounded-full text-indigo-500 border border-indigo-500"
+        >
+          Filter Produce
+          <MobileCategories
+            isOpen={isOpen}
+            onClose={onClose}
+            setSelectedCategory={setSelectedCategory}
+            categories={categories}
+            selectedCategory={selectedCategory}
+            items={items}
+          />
+        </span>
+      </div>
+
       {width > TABLET_BREAKPOINT ? (
         <>
           <div
@@ -54,49 +91,53 @@ export default function Home() {
                   className="bg-white py-8 rounded-md px-4 col-span-5 focus:outline-none"
                   placeholder="Search for what you need"
                 />
-                <Button text="Search" className="col-span-1" emphasis={true} />
+                <Button text="Search" emphasis={true} />
               </div>
             </div>
           </div>
         </>
       ) : null}
-      <div className="grid grid-cols 5 md:grid-cols-6 h-screen pt-10">
-        <div className="bg-white col-span-2">
-          <div className="mx-6 my-4">
-            {width > TABLET_BREAKPOINT ? (
-              <Heading text="Categories" />
-            ) : (
-              <MobileHeading text="Categories" />
-            )}
+      <div>
+        <div className="grid md:grid-cols-4 lg:grid-cols-6 h-screen pt-10">
+          {width > SMALL_LAPTOP_BREAKPOINT ? (
+            <>
+              <div className="bg-white col-span-2">
+                <div className="mx-6 my-4">
+                  <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
+                    Categories
+                  </h2>
 
-            <div className="flex-col flex">
-              {categories.map((item) => (
-                <CategoryLink
-                  text={item}
-                  selected={selectedCategory == item}
-                  onClickHandler={() => setSelectedCategory(item)}
-                />
-              ))}
-            </div>
+                  <div className="flex-col flex">
+                    {categories.map((item) => (
+                      <CategoryLink
+                        text={item}
+                        selected={selectedCategory == item}
+                        onClickHandler={() => setSelectedCategory(item)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : null}
+          <div className="col-span-4 lg:col-span-4 mx-4">
+            <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-6">
+              {items
+                .filter(
+                  (item: GroceryItem) =>
+                    !selectedCategory || item.tags.includes(selectedCategory)
+                )
+                .map((item: GroceryItem) => (
+                  <FoodCard
+                    tags={item.tags}
+                    name={item.name}
+                    quantity={item.quantity}
+                    img={item.img}
+                    price={item.price}
+                  />
+                ))}
+            </ul>
           </div>
-        </div>
-        <div className="col-span-4 mx-4">
-          <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {items
-              .filter(
-                (item: GroceryItem) =>
-                  !selectedCategory || item.tags.includes(selectedCategory)
-              )
-              .map((item: GroceryItem) => (
-                <FoodCard
-                  tags={item.tags}
-                  name={item.name}
-                  quantity={item.quantity}
-                  img={item.img}
-                  price={item.price}
-                />
-              ))}
-          </ul>
         </div>
       </div>
     </>

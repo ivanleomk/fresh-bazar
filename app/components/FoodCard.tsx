@@ -6,16 +6,31 @@ import Heading from "./Heading";
 import SubHeading from "./SubHeading";
 import Tags from "./Tags";
 import { PropTypes } from "prop-types";
+import { Center } from "@chakra-ui/react";
 
 const FoodCard = ({ img, price, name, quantity, tags }) => {
   return (
-    <li className="col-span-3 lg:col-span-1 hover:shadow-md hover:cursor-pointer cursor-pointer p-4">
-      <Image src={img} width={300} height={300} />
+    <li className="col-span-2 hover:shadow-md hover:cursor-pointer cursor-pointer p-4">
+      <Center>
+        <Image src={img} width={300} height={300} />
+      </Center>
+
       <div className="mx-4">
         <div className="flex">
-          <div>
-            <Heading text={name} />
-            <SubHeading text={`${price} / ${quantity}`} />
+          <div className="text-lg leading-6 font-medium space-y-1">
+            <h3
+              style={{
+                fontFamily: "Poppins",
+              }}
+            >
+              {name}
+            </h3>
+            <p
+              style={{
+                fontFamily: "Poppins",
+              }}
+              className="text-gray-400"
+            >{`$${price} / ${quantity}`}</p>
           </div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -32,9 +47,12 @@ const FoodCard = ({ img, price, name, quantity, tags }) => {
           </svg>
         </div>
       </div>
-      {tags.map((item) => (
-        <Tags text={item} />
-      ))}
+      <div className="flex space-x-5 my-4">
+        {tags.map((item) => (
+          <Tags text={item} />
+        ))}
+      </div>
+
       <Button text="Add to Cart" emphasis={true} />
     </li>
   );
