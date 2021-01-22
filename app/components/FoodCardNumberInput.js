@@ -1,5 +1,4 @@
 import React from "react";
-import { isRegularExpressionLiteral } from "typescript";
 import {
   DECREMENT_ITEM_COUNT,
   INCREMENT_ITEM_COUNT,

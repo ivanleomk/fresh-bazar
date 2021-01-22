@@ -8,7 +8,6 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import CategoryLink from "./CategoryLink";
-import { GroceryItem } from "../types/index";
 
 export const MobileCategories = ({
   onClose,

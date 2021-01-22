@@ -15,7 +15,6 @@ import FoodCard from "../app/components/FoodCard";
 import { MobileCategories } from "../app/components/MobileCategories";
 
 //Importing Types
-import { GroceryItem } from "../app/types/index";
 import { extract_tags_from_list } from "../app/methods/items";
 
 //Hooks
