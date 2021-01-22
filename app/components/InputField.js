@@ -2,7 +2,7 @@ import React from "react";
 
 const InputField = ({ text }) => {
   return (
-    <div class="sm:col-span-3 w-screen max-w-md">
+    <div class="sm:col-span-3">
       <label
         for="first_name"
         class="block text-sm text-left font-medium text-gray-700"
@@ -15,7 +15,7 @@ const InputField = ({ text }) => {
           name="first_name"
           id="first_name"
           autocomplete="given-name"
-          class="shadow-sm focus:outline-none py-2 block w-full sm:text-sm border-gray-300 rounded-md"
+          class="shadow-sm focus:outline-none py-2 block w-full sm:text-sm border-b-4 rounded-md"
         />
       </div>
     </div>

@@ -5,7 +5,7 @@ import FoodCardNumberInput from "./FoodCardNumberInput";
 const OrderCard = ({ item, dispatch }) => {
   const { name, img, unit, price, quantity } = item;
   return (
-    <div class="overflow-hidden flex w-full justify-between">
+    <div class="flex justify-between max-w-md">
       <Image src={img} width={150} height={150} />
       <div className="flex flex-col items-start">
         <h3 className="font-semibold text-gray-900 text-xl">{name}</h3>
