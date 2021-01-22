@@ -1,14 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import Image from "next/image";
 import Heading from "./Heading";
 
 import useWindowSize from "../hooks/useWindowDimensions";
 import { TABLET_BREAKPOINT } from "../constants/breakpoints";
 import { MobileHeading } from "./MobileHeading";
-import { Button, useDisclosure } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
 import MobileSidebar from "./MobileSidebar";
-import { useRouter } from "next/router";
-import { useScrollContext } from "../context/ScrollContext";
 
 const Header = () => {
   const { width } = useWindowSize();
