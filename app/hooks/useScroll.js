@@ -34,6 +34,7 @@ const useScroll = () => {
     scrollY,
     scrollX,
     scrollDirection,
+    setScrollY,
   };
 };
 

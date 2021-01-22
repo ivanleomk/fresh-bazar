@@ -8,9 +8,13 @@ import {
 import React, { useContext } from "react";
 import { OrderCart } from "./OrderCart";
 import { useOrderContext } from "../context/OrderContext";
+import { useRouter } from "next/router";
+import RedirectLink from "./RedirectLink";
 
 const MobileSidebar = ({ isOpen, onClose }) => {
   const { orders } = useOrderContext();
+  const router = useRouter();
+
   return (
     <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
@@ -35,20 +39,21 @@ const MobileSidebar = ({ isOpen, onClose }) => {
           </div>
         </DrawerHeader>
         <DrawerBody>
-          <OrderCart />
-          <button
-            style={{ maxWidth: "350px" }}
-            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Checkout{" "}
-            <span className="text-sm">{`($${
+          <OrderCart onClose={onClose} />
+          <RedirectLink
+            onClose={onClose}
+            customStyling={
+              "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            }
+            text={`Checkout  ($${
               orders.length > 0
                 ? orders
                     .map((item) => item.unit * item.price)
                     .reduce((acc, currVal) => acc + currVal)
                 : 0
-            })`}</span>
-          </button>
+            })`}
+            pathname="/checkout"
+          ></RedirectLink>
         </DrawerBody>
       </DrawerContent>
     </Drawer>
