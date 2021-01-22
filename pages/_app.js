@@ -6,21 +6,26 @@ import "../styles/tailwind.css";
 import Head from "next/head";
 import Header from "../app/components/Header";
 import { ChakraProvider } from "@chakra-ui/react";
+import { OrderWrapper } from "../app/context/OrderContext";
+
+//Context Imports
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ChakraProvider>
-      <Head>
-        <link
-          rel="preload"
-          href="/fonts/Poppins/Poppins-Bold.ttf"
-          as="font"
-          crossOrigin=""
-        />
-      </Head>
-      <Header />
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <OrderWrapper>
+      <ChakraProvider>
+        <Head>
+          <link
+            rel="preload"
+            href="/fonts/Poppins/Poppins-Bold.ttf"
+            as="font"
+            crossOrigin=""
+          />
+        </Head>
+        <Header />
+        <Component {...pageProps} />
+      </ChakraProvider>
+    </OrderWrapper>
   );
 }
 

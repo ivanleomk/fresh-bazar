@@ -1,3 +1,4 @@
+import OrderList from "./OrderList";
 import React from "react";
 
 export const OrderCart = ({}) => {
@@ -31,6 +32,7 @@ export const OrderCart = ({}) => {
             Your Current Order
           </h3>
         </div>
+        <OrderList />
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Heading from "./Heading";
 
@@ -7,15 +7,21 @@ import { TABLET_BREAKPOINT } from "../constants/breakpoints";
 import { MobileHeading } from "./MobileHeading";
 import { Button, useDisclosure } from "@chakra-ui/react";
 import MobileSidebar from "./MobileSidebar";
+import { useScroll } from "../hooks/useScroll";
 
 const Header = () => {
   const { width } = useWindowSize();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { scrollY } = useScroll();
+  console.log(scrollY);
+
+  const styling =
+    scrollY > 40
+      ? "flex justify-between items-center z-10 fixed px-6 py-10 w-full"
+      : "flex justify-between items-center sticky px-6 py-10";
+
   return (
-    <div
-      className="flex justify-between items-center sticky px-6 py-10"
-      style={{ backgroundColor: "#F9F9F9" }}
-    >
+    <div className={styling} style={{ backgroundColor: "#F9F9F9" }}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
