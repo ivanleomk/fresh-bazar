@@ -29,8 +29,14 @@ const Checkout = () => {
     <center className="px-4 py-4">
       <div className=" max-w-xl flex flex-col items-start">
         <Heading text="Your Order" />
-        <OrderList />
-        <CheckoutForm />
+        {orders.length > 0 ? (
+          <>
+            <OrderList />
+            <CheckoutForm />
+          </>
+        ) : (
+          <p>Your cart is empty</p>
+        )}
       </div>
     </center>
   );
