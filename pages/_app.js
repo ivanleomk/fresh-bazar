@@ -10,7 +10,8 @@ import { ChakraProvider } from "@chakra-ui/react";
 
 //Amplify Configuration
 import Amplify from 'aws-amplify'
-import config from '../src/aws-exports'
+import config from '../src/aws-exports.js'
+
 Amplify.configure({
   ...config,
   ssr: true
