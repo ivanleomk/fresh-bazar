@@ -1,0 +1,14 @@
+[
+  {
+    "groupName": "freshdevadmin",
+    "precedence": 1
+  },
+  {
+    "groupName": "freshdevvendor",
+    "precedence": 2
+  },
+  {
+    "groupName": "freshdevusers",
+    "precedence": 3
+  }
+]

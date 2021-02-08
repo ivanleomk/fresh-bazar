@@ -6,30 +6,42 @@ import "../styles/tailwind.css";
 import Head from "next/head";
 import Header from "../app/components/Header";
 import { ChakraProvider } from "@chakra-ui/react";
-import { OrderWrapper } from "../app/context/OrderContext";
+
+
+//Amplify Configuration
+import Amplify from 'aws-amplify'
+import config from '../src/aws-exports'
+Amplify.configure({
+  ...config,
+  ssr: true
+})
 
 //Context Imports
+import { OrderWrapper } from "../app/context/OrderContext";
+import { UserWrapper } from "../app/context/UserContext";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <OrderWrapper>
-      <ChakraProvider>
-        <Head>
-          <link
-            rel="preload"
-            href="/fonts/Poppins/Poppins-Bold.ttf"
-            as="font"
-            crossOrigin=""
-          />
-        </Head>
-        <div class="flex flex-col h-screen">
-          <Header />
-          <div className="flex-1 overflow-y-auto">
-            <Component {...pageProps} />
+    <UserWrapper>
+      <OrderWrapper>
+        <ChakraProvider>
+          <Head>
+            <link
+              rel="preload"
+              href="/fonts/Poppins/Poppins-Bold.ttf"
+              as="font"
+              crossOrigin=""
+            />
+          </Head>
+          <div class="flex flex-col h-screen">
+            <Header />
+            <div className="flex-1 overflow-y-auto">
+              <Component {...pageProps} />
+            </div>
           </div>
-        </div>
-      </ChakraProvider>
-    </OrderWrapper>
+        </ChakraProvider>
+      </OrderWrapper>
+    </UserWrapper>
   );
 }
 

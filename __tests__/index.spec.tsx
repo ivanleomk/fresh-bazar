@@ -10,3 +10,6 @@ describe("Pages", () => {
     });
   });
 });
+
+
+aws amplify delete-backend-environment --app-id dg7uxr4l6cxqu --environment-name freshbazar
