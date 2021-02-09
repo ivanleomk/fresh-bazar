@@ -5,26 +5,58 @@ import FormButton from "../app/components/FormButton";
 
 import RedirectLink from "../app/components/RedirectLink";
 import { useUserContext } from "../app/context/UserContext";
+import { useToast } from '@chakra-ui/react';
+import { produceToast } from '../app/helperFunctions/produceToast';
 
 const confirmation_page = () => {
-    const Router = useRouter()
-    const {username,confirmation_code} = Router.query
-    
+    const router = useRouter()
+    const {username,confirmation_code} = router.query
+    const toast = useToast();
     const [confirmationCode,setConfirmationCode] = React.useState(0)
     const { sendVerificationCode } = useUserContext();
-
+  
     React.useEffect(()=>{
-        if(Router.query){
+        if(router.query){
             setConfirmationCode(parseInt(confirmation_code))
         }
-    },[Router.query])
+    },[router.query])
+
+
+    const redirectToLogin = () => {
+      router.push("/login")
+    }
+
+    const redirectToHome = () => {
+      router.push("/")
+    }
 
     const confirmSignUp = (e) => {
         e.preventDefault()
-        sendVerificationCode(username,confirmationCode)
+        
+        sendVerificationCode(username,confirmationCode.toString()).then(()=>{
+          produceToast(toast,"success","Success!","We've confirmed your email address. Redirecting you to the main page now.")
+          redirectToHome()
+        }
+        
+        ).catch((err)=>{
+          // User has already confirmed his email
+          if(err.message=="User cannot be confirmed. Current status is CONFIRMED"){
+            produceToast(toast,"Error encountered","Email has already been confirmed. Redirecting to login page now")
+            redirectToLogin()
+          }
+          
+
+          toast({
+            title: "Error encountered",
+            description: err.message,
+            status: "warning",
+            duration: 1000,
+            isClosable: true,
+          })
+          
+          console.log(err)})
     }
 
-    console.log(Router.query)
     return (
         <div class="flex-grow bg-white flex h-full">
       <div class="flex-1 flex flex-col justify-center px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">

@@ -4,6 +4,9 @@ import { useUserContext } from "../app/context/UserContext";
 import FormButton from "../app/components/FormButton";
 import FormInput from "../app/components/FormInput";
 import { useToast } from "@chakra-ui/react"
+import { useRouter } from "next/router";
+import { validateEmail } from "../app/helperFunctions/validateEmail";
+import { produceToast } from "../app/helperFunctions/produceToast";
 
 
 const Login = () => {
@@ -11,30 +14,33 @@ const Login = () => {
   const toast = useToast(); 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter()
+
+  const redirectToSignIn = () => {
+    router.push("/login")
+  }
+
 
   const HandleSignUp = (e) => {
     e.preventDefault();
+    //Validation of Email
+    if(!validateEmail(email)){
+      produceToast(toast,"warning","Invalid Input","Please enter a valid email!")
+      return
+    }
+
+
     signUp(email,password).then((user)=>{
-      console.log(user)
-      toast({
-        title: "Success!",
-        description: "Look out for a confirmation email in your inbox",
-        status: "success",
-        duration: 1000,
-        isClosable: true,
-      })
+      produceToast(toast,"success","Succesfully registed!","We've just sent you a confirmation email. Do look out for it in your inbox!")
     }
     
     ).catch((err)=>{
-      console.log(err)
-      toast({
-        title: "Error encountered",
-        description: err.message,
-        status: "warning",
-        duration: 1000,
-        isClosable: true,
-      })
-      console.log(err)})
+      // Username already exists
+      if(err.code == "UsernameExistsException"){
+        produceToast(toast,"warning","An account exists for this email","Redirecting to sign in now.")
+        redirectToSignIn()
+      }
+    })
   };
 
   return (
@@ -63,7 +69,6 @@ const Login = () => {
                   type="password"
                 />
 
-
                 <div>
                   <button
                     type="submit"
@@ -90,7 +95,7 @@ const Login = () => {
       <div class="hidden lg:block relative w-0 flex-1">
         <img
           class="absolute inset-0 h-full w-full object-cover"
-          src="https://images.unsplash.com/photo-1505904267569-f02eaeb45a4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80"
+          src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
           alt=""
         />
       </div>

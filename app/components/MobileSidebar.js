@@ -4,16 +4,30 @@ import {
   DrawerContent,
   DrawerOverlay,
   DrawerHeader,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { OrderCart } from "./OrderCart";
 import { useOrderContext } from "../context/OrderContext";
 import { useRouter } from "next/router";
 import RedirectLink from "./RedirectLink";
+import { useUserContext } from "../context/UserContext";
+import { produceToast } from "../helperFunctions/produceToast";
 
 const MobileSidebar = ({ isOpen, onClose }) => {
   const { orders } = useOrderContext();
+  const {user,signOut,setUser} = useUserContext();
   const router = useRouter();
+  const toast = useToast();
+
+  const handleSignOut = () => {
+    signOut().then((e)=>{
+      setUser(null)
+      onClose()
+      produceToast(toast,"success","Success!","Succesfully signed out.")}
+      )
+    .catch((err)=>console.log("Error : "+err))
+  }
 
   return (
     <Drawer placement="right" onClose={onClose} isOpen={isOpen}>
@@ -23,20 +37,15 @@ const MobileSidebar = ({ isOpen, onClose }) => {
           <div className="flex justify-between">
             <a href="#" class="flex-shrink-0 group block">
               <div class="flex items-center">
-                <div>
-                  <img
-                    class="inline-block h-9 w-9 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=bifM8xhaYj&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
-                </div>
                 <div class="ml-3">
-                  <p class="text-sm font-medium text-gray-700 group-hover:text-gray-900">
-                    Tom Cook
+                  <p class="text-lg font-medium text-gray-700 group-hover:text-gray-900">
+                    {user ? user.username : <RedirectLink text = "Sign In" pathname = "/login" onClose={onClose} />}
                   </p>
-                  <p class="text-xs font-medium text-gray-500 group-hover:text-gray-700">
-                    View profile
-                  </p>
+                  {user && <button 
+                  onClick = {() => handleSignOut()}
+                  class="text-sm font-medium text-gray-500 group-hover:text-gray-700">
+                    Sign Out
+                  </button>}
                 </div>
               </div>
             </a>

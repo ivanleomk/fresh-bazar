@@ -4,38 +4,49 @@ import FormInput from "../app/components/FormInput";
 import RedirectLink from "../app/components/RedirectLink";
 import { useUserContext } from "../app/context/UserContext";
 import { useToast } from "@chakra-ui/react"
+import { produceToast } from "../app/helperFunctions/produceToast";
+import { validateEmail } from "../app/helperFunctions/validateEmail";
+import { useRouter } from "next/router";
 
 
 
 const Login = () => {
-  const { user, signIn, signUp } = useUserContext();
+  const { setUser,user, signIn, signUp } = useUserContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const toast = useToast()
+  const router = useRouter()
+  
+
+  const redirectToSignUp = () => {
+    router.push("/signup")
+  }
+
+  const redirectToHome = () => {
+    router.push("/")
+  }
 
   const HandleSignIn = (e) => {
     e.preventDefault();
+    //Input validation
+    if(!validateEmail(email)){
+      produceToast(toast,"warning","Invalid Input","Please enter a valid email!")
+      return
+    }
     
-    signIn(email,password).then(()=>{
-      toast({
-        title: "Success!",
-        description: "Redirecting you now",
-        status: "success",
-        duration: 1000,
-        isClosable: true,
-      })
+    signIn(email,password).then((authUser)=>{
+      produceToast(toast,"success","Success!","Redirecting you now")
+      setUser(authUser)
+      redirectToHome();
     }
     
     ).catch((err)=>{
-      console.log(err)
-      toast({
-        title: "Error encountered",
-        description: err.message,
-        status: "warning",
-        duration: 1000,
-        isClosable: true,
-      })
-      console.log(err)})
+      if(err.code=="UserNotFoundException"){
+        produceToast(toast,"warning", "Warning!", "No account exists with that email. Redirecting to Login now")  
+        redirectToSignUp();
+      }
+      produceToast(toast,"warning", "Warning!", err.message)  
+    })
   };
 
   return (
@@ -58,6 +69,7 @@ const Login = () => {
                 />
                 <FormInput
                   label="Password"
+                  type="password"
                   value={password}
                   onChange={setPassword}
                 />

@@ -37,21 +37,39 @@ export function UserWrapper({ children }) {
     })
   }
 
-
-async function sendVerificationCode(username,code) {
-  try {
-    await Auth.confirmSignUp(username, code);
-  } catch (error) {
-      console.log('error confirming sign up', error);
+  const sendVerificationCode = (username,code) => {
+    return new Promise((resolve,reject)=>{
+      
+      try {
+        const res = Auth.confirmSignUp(username, code)
+        resolve(res)
+      } catch (error) {
+        reject(error)
+      }
+    })
   }
-}
+  
+  const signOut = () => {
+    return new Promise((resolve,reject)=>{
+      try{
+        const res = Auth.signOut({global:true})
+        
+        resolve(res)
+      }
+      catch(error){
+        reject(error)
+      }
+    })
+  }
 
 
   let sharedState = {
     user,
     signIn,
     signUp,
-    sendVerificationCode
+    signOut,
+    sendVerificationCode,
+    setUser,
   };
 
   return (

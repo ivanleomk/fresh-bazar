@@ -26,6 +26,7 @@ import {
   SMALL_LAPTOP_BREAKPOINT,
   TABLET_BREAKPOINT,
 } from "../app/constants/breakpoints";
+import { useUserContext } from "../app/context/UserContext";
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = React.useState("");
