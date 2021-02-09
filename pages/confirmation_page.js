@@ -13,7 +13,7 @@ const confirmation_page = () => {
     const {username,confirmation_code} = router.query
     const toast = useToast();
     const [confirmationCode,setConfirmationCode] = React.useState(0)
-    const { sendVerificationCode } = useUserContext();
+    const { sendVerificationCode,setUser } = useUserContext();
   
     React.useEffect(()=>{
         if(router.query){
@@ -33,8 +33,9 @@ const confirmation_page = () => {
     const confirmSignUp = (e) => {
         e.preventDefault()
         
-        sendVerificationCode(username,confirmationCode.toString()).then(()=>{
+        sendVerificationCode(username,confirmationCode.toString()).then((user)=>{
           produceToast(toast,"success","Success!","We've confirmed your email address. Redirecting you to the main page now.")
+          setUser(user)
           redirectToHome()
         }
         
