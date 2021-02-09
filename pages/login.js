@@ -3,16 +3,38 @@ import FormButton from "../app/components/FormButton";
 import FormInput from "../app/components/FormInput";
 import RedirectLink from "../app/components/RedirectLink";
 import { useUserContext } from "../app/context/UserContext";
+import { useToast } from "@chakra-ui/react"
+
+
 
 const Login = () => {
   const { user, signIn, signUp } = useUserContext();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const toast = useToast()
 
   const HandleSignIn = (e) => {
     e.preventDefault();
-    signIn(email,password).then(()=>console.log("Sucess!")).catch((err)=>{console.log(err)})
+    signIn(email,password).then(()=>{
+      toast({
+        title: "Success!",
+        description: "Redirecting you now",
+        status: "success",
+        duration: 1000,
+        isClosable: true,
+      })
+    }
+    
+    ).catch((err)=>{
+      console.log("Error Detected")
+      toast({
+        title: "Failure",
+        description: "Incorrect Credentials",
+        status: "Warning",
+        duration: 1000,
+        isClosable: true,
+      })
+      console.log(err)})
   };
 
   return (

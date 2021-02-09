@@ -10,10 +10,9 @@ export function UserWrapper({ children }) {
     try {
         const user = await Auth.signIn(username, password);
         setUser(user)
-        
         return user
     } catch (error) {
-        console.log('error signing in', error);
+        throw 500; 
     }
 }
 async function signUp(username,password) {
@@ -25,7 +24,7 @@ async function signUp(username,password) {
               email:username,   
           }
       });
-      console.log(user);
+      
   } catch (error) {
       console.log('error signing up:', error);
   }
