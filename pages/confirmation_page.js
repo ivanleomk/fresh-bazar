@@ -17,7 +17,7 @@ const confirmation_page = () => {
   
     React.useEffect(()=>{
         if(router.query){
-            setConfirmationCode(parseInt(confirmation_code))
+            setConfirmationCode(confirmation_code)
         }
     },[router.query])
 
@@ -33,7 +33,7 @@ const confirmation_page = () => {
     const confirmSignUp = (e) => {
         e.preventDefault()
         
-        sendVerificationCode(username,confirmationCode.toString()).then((user)=>{
+        sendVerificationCode(username,confirmationCode).then((user)=>{
           produceToast(toast,"success","Success!","We've confirmed your email address. Redirecting you to the main page now.")
           setUser(user)
           redirectToHome()

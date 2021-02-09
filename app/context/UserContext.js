@@ -62,6 +62,42 @@ export function UserWrapper({ children }) {
     })
   }
 
+  const forgotPassword = (username) => {
+    return new Promise((resolve,reject)=>{
+      try{
+        const res = Auth.forgotPassword(username)
+        resolve(res)
+      }
+      catch(error){
+        reject(error)
+      }
+    })
+  }
+
+  const forgotPasswordSubmit = (username,code,new_password) => {
+    return new Promise((resolve,reject)=>{
+      try{
+        const res = Auth.forgotPasswordSubmit(username, code, new_password)
+        resolve(res)
+      }
+      catch(error){
+        reject(error)
+      }
+    })
+  }
+
+  const resendConfirmationCode = (username) => {
+    return new Promise((resolve,reject)=>{
+      try{
+        const res = Auth.resendSignUp(username);
+        resolve(res)
+      }
+      catch(error){
+        reject(error)
+      }
+    })
+  }
+
 
   let sharedState = {
     user,
@@ -69,7 +105,10 @@ export function UserWrapper({ children }) {
     signUp,
     signOut,
     sendVerificationCode,
+    forgotPassword,
+    forgotPasswordSubmit,
     setUser,
+    resendConfirmationCode
   };
 
   return (
