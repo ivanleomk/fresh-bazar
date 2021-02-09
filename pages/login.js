@@ -15,6 +15,7 @@ const Login = () => {
 
   const HandleSignIn = (e) => {
     e.preventDefault();
+    
     signIn(email,password).then(()=>{
       toast({
         title: "Success!",
@@ -26,11 +27,11 @@ const Login = () => {
     }
     
     ).catch((err)=>{
-      console.log("Error Detected")
+      console.log(err)
       toast({
-        title: "Failure",
-        description: "Incorrect Credentials",
-        status: "Warning",
+        title: "Error encountered",
+        description: err.message,
+        status: "warning",
         duration: 1000,
         isClosable: true,
       })
@@ -60,23 +61,6 @@ const Login = () => {
                   value={password}
                   onChange={setPassword}
                 />
-
-                {/* <div class="flex items-center justify-between">
-                  <div class="flex items-center">
-                    <input
-                      id="remember_me"
-                      name="remember_me"
-                      type="checkbox"
-                      class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                    />
-                    <label
-                      for="remember_me"
-                      class="ml-2 block text-sm text-gray-900"
-                    >
-                      Remember me
-                    </label>
-                  </div>
-                </div> */}
                 <FormButton text="Sign In" onClick={(e)=>HandleSignIn(e)} />
               </form>
 

@@ -6,29 +6,37 @@ const UserContext = createContext();
 export function UserWrapper({ children }) {
   const [user, setUser] = useState(null);
 
-  async function signIn(username,password) {
-    try {
-        const user = await Auth.signIn(username, password);
-        setUser(user)
-        return user
-    } catch (error) {
-        throw 500; 
-    }
-}
-async function signUp(username,password) {
-  try {
-      const { user } = await Auth.signUp({
-          username,
-          password,
-          attributes: {
-              email:username,   
-          }
-      });
-      
-  } catch (error) {
-      console.log('error signing up:', error);
+  const signIn = (username,password) => {
+    return new Promise((resolve,reject)=>{
+      try{
+        const user = Auth.signIn(username, password);
+        resolve(user)
+      }
+      catch(error){
+        reject(error)
+      }
+
+    })
   }
-}
+
+  const signUp = (username,password) => {
+    return new Promise((resolve,reject)=>{
+      try {
+        const res = Auth.signUp({
+            username,
+            password,
+            attributes: {
+                email:username,   
+            }
+        });
+        resolve(res)
+    }
+    catch(error){
+      reject(error)
+    }
+    })
+  }
+
 
 async function sendVerificationCode(username,code) {
   try {

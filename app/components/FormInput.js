@@ -8,8 +8,8 @@ const FormInput = ({ label, value, onChange,type }) => {
       </label>
       <div class="mt-1">
         <input
-          id="email"
-          name="email"
+          id={label}
+          name={label}
           type={type}
           autocomplete="email"
           required
