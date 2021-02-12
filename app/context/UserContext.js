@@ -6,101 +6,93 @@ const UserContext = createContext();
 export function UserWrapper({ children }) {
   const [user, setUser] = useState(null);
 
-  const signIn = (username,password) => {
-    return new Promise((resolve,reject)=>{
-      try{
+  const signIn = (username, password) => {
+    return new Promise((resolve, reject) => {
+      try {
         const user = Auth.signIn(username, password);
-        resolve(user)
+        resolve(user);
+      } catch (error) {
+        reject(error);
       }
-      catch(error){
-        reject(error)
-      }
+    });
+  };
 
-    })
-  }
-
-  const signUp = (username,password) => {
-    return new Promise((resolve,reject)=>{
+  const signUp = (username, password) => {
+    return new Promise((resolve, reject) => {
       try {
         const res = Auth.signUp({
-            username,
-            password,
-            attributes: {
-                email:username,   
-            }
+          username,
+          password,
+          attributes: {
+            email: username,
+          },
         });
-        resolve(res)
-    }
-    catch(error){
-      reject(error)
-    }
-    })
-  }
-
-  const sendVerificationCode = (username,code) => {
-    return new Promise((resolve,reject)=>{
-      
-      try {
-        const res = Auth.confirmSignUp(username, code)
-        resolve(res)
+        resolve(res);
       } catch (error) {
-        reject(error)
+        reject(error);
       }
-    })
-  }
-  
+    });
+  };
+
+  const sendVerificationCode = (username, code) => {
+    return new Promise((resolve, reject) => {
+      try {
+        const res = Auth.confirmSignUp(username, code);
+        resolve(res);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
   const signOut = () => {
-    return new Promise((resolve,reject)=>{
-      try{
-        const res = Auth.signOut({global:true})
-        
-        resolve(res)
+    return new Promise((resolve, reject) => {
+      try {
+        const res = Auth.signOut({ global: true });
+
+        resolve(res);
+      } catch (error) {
+        reject(error);
       }
-      catch(error){
-        reject(error)
-      }
-    })
-  }
+    });
+  };
 
   const forgotPassword = (username) => {
-    return new Promise((resolve,reject)=>{
-      try{
-        const res = Auth.forgotPassword(username)
-        resolve(res)
+    return new Promise((resolve, reject) => {
+      try {
+        const res = Auth.forgotPassword(username);
+        resolve(res);
+      } catch (error) {
+        reject(error);
       }
-      catch(error){
-        reject(error)
-      }
-    })
-  }
+    });
+  };
 
-  const forgotPasswordSubmit = (username,code,new_password) => {
-    return new Promise((resolve,reject)=>{
-      try{
-        const res = Auth.forgotPasswordSubmit(username, code, new_password)
-        resolve(res)
+  const forgotPasswordSubmit = (username, code, new_password) => {
+    return new Promise((resolve, reject) => {
+      try {
+        const res = Auth.forgotPasswordSubmit(username, code, new_password);
+        resolve(res);
+      } catch (error) {
+        reject(error);
       }
-      catch(error){
-        reject(error)
-      }
-    })
-  }
+    });
+  };
 
   const resendConfirmationCode = (username) => {
-    return new Promise((resolve,reject)=>{
-      try{
+    return new Promise((resolve, reject) => {
+      try {
         const res = Auth.resendSignUp(username);
-        resolve(res)
+        resolve(res);
+      } catch (error) {
+        reject(error);
       }
-      catch(error){
-        reject(error)
-      }
-    })
-  }
-
+    });
+  };
 
   let sharedState = {
     user,
+    isAuthenticated: !(user === null),
     signIn,
     signUp,
     signOut,
@@ -108,7 +100,7 @@ export function UserWrapper({ children }) {
     forgotPassword,
     forgotPasswordSubmit,
     setUser,
-    resendConfirmationCode
+    resendConfirmationCode,
   };
 
   return (

@@ -20,24 +20,59 @@ import { extract_tags_from_list } from "../app/methods/items";
 //Hooks
 import useWindowSize from "../app/hooks/useWindowDimensions";
 
-//Mocking Data
-import { items } from "../app/constants/items";
+//Next Auth Imports
+import { signIn, signOut, useSession } from "next-auth/client";
+
+//Breakpoint Stuff
 import {
   SMALL_LAPTOP_BREAKPOINT,
   TABLET_BREAKPOINT,
 } from "../app/constants/breakpoints";
+
+//GraphQL Queries
+import { ALL_ITEMS_QUERY } from "../app/queries/getItems";
+
+//Apollo Imports
+import { gql, useQuery } from "@apollo/client";
 import { useUserContext } from "../app/context/UserContext";
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = React.useState("");
+  const [items, setItems] = useState([]);
   const [categories, setCategories] = React.useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { loading, error, data } = useQuery(ALL_ITEMS_QUERY);
+  const { user } = useUserContext();
+  console.log(user);
   let { width } = useWindowSize();
 
   useEffect(() => {
     const tags = extract_tags_from_list(items);
+    console.log("Extracing tags,found");
     setCategories(tags);
-  }, []);
+  }, [data]);
+
+  useEffect(() => {
+    if (!loading) {
+      let newData = data["item"]
+        .map(({ __typename, ...item }) => item)
+        .map((item) => {
+          return {
+            ...item,
+            item_categories: item.item_categories.map(
+              ({ category }) => category.name
+            ),
+          };
+        });
+      setItems(newData);
+      console.log(newData);
+    }
+  }, [loading]);
+
+  const handleSignIn = () => {
+    console.log("Signing in!");
+    signIn();
+  };
 
   return (
     <>
@@ -102,6 +137,7 @@ export default function Home() {
                   <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
                     Categories
                   </h2>
+                  <button onClick={handleSignIn}>Sign In</button>
 
                   <div className="flex-col flex">
                     {categories.map((item) => (
@@ -121,16 +157,11 @@ export default function Home() {
               {items
                 .filter(
                   (item) =>
-                    !selectedCategory || item.tags.includes(selectedCategory)
+                    !selectedCategory ||
+                    item.item_categories.includes(selectedCategory)
                 )
                 .map((item) => (
-                  <FoodCard
-                    tags={item.tags}
-                    name={item.name}
-                    quantity={item.quantity}
-                    img={item.img}
-                    price={item.price}
-                  />
+                  <FoodCard item={item} />
                 ))}
             </ul>
           </div>

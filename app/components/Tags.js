@@ -6,7 +6,7 @@ const Tags = ({ text }) => {
       style={{
         fontFamily: "Poppins",
       }}
-      className="flex-shrink-0 inline-block px-2 py-4 mr-4 mb-4 text-green-800 text-xs font-medium bg-green-100 rounded-full"
+      className="flex-shrink-0 min-w-md inline-block px-2 py-4 mr-4 mb-4 text-green-800 text-xs font-medium bg-green-100 rounded-sm"
     >
       {text}
     </span>

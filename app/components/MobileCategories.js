@@ -61,7 +61,7 @@ export const MobileCategories = ({
                         title: "Filter Applied",
                         description: `We found ${
                           items.filter((groceryitem) =>
-                            groceryitem.tags.includes(item)
+                            groceryitem.item_categories.includes(item)
                           ).length
                         } items which matched your selection`,
                         status: "success",

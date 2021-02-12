@@ -10,12 +10,13 @@ import { Center, useToast } from "@chakra-ui/react";
 import { useOrderContext } from "../context/OrderContext";
 import FoodCardNumberInput from "./FoodCardNumberInput";
 
-const FoodCard = ({ img, price, name, quantity, tags }) => {
+const FoodCard = ({ item }) => {
+  const { name, price, unit, item_categories } = item;
   return (
     <li className="border border-gray-100 rounded-md shadow-sm my-4 mx-2  col-span-2 hover:shadow-md hover:cursor-pointer cursor-pointer p-4">
-      <Center>
+      {/* <Center>
         <Image src={img} width={300} height={300} />
-      </Center>
+      </Center> */}
 
       <div className="mx-4">
         <div className="flex">
@@ -32,22 +33,17 @@ const FoodCard = ({ img, price, name, quantity, tags }) => {
                 fontFamily: "Poppins",
               }}
               className="text-gray-400"
-            >{`$${price} / ${quantity}`}</p>
+            >{`$${price} / ${unit}`}</p>
           </div>
         </div>
       </div>
       <div className="flex space-x-5 my-4">
-        {tags.map((item) => (
+        {item_categories.map((item) => (
           <Tags text={item} />
         ))}
       </div>
       <Center>
-        <FoodCardNumberInput
-          name={name}
-          img={img}
-          price={price}
-          quantity={quantity}
-        />
+        <FoodCardNumberInput name={name} price={price} />
       </Center>
     </li>
   );
