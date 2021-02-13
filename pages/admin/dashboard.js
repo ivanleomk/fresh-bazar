@@ -1,7 +1,8 @@
 import React from "react";
+import DashboardTable from "../../app/components/dashboard/dashboardTable";
 
 const dashboard = () => {
-  return <div>This is the protected dashboard</div>;
+  return <DashboardTable />;
 };
 
 export default dashboard;

@@ -29,26 +29,26 @@ function MyApp({ Component, pageProps }) {
   return (
     <ApolloProvider client={apolloClient}>
       <UserWrapper>
-        <AdminProtectedRoute>
-          <OrderWrapper>
-            <ChakraProvider>
-              <Head>
-                <link
-                  rel="preload"
-                  href="/fonts/Poppins/Poppins-Bold.ttf"
-                  as="font"
-                  crossOrigin=""
-                />
-              </Head>
-              <div class="flex flex-col h-screen">
-                <Header />
+        <OrderWrapper>
+          <ChakraProvider>
+            <Head>
+              <link
+                rel="preload"
+                href="/fonts/Poppins/Poppins-Bold.ttf"
+                as="font"
+                crossOrigin=""
+              />
+            </Head>
+            <div class="flex flex-col h-screen">
+              <Header />
+              <AdminProtectedRoute>
                 <div className="flex-1 overflow-y-auto">
                   <Component {...pageProps} />
                 </div>
-              </div>
-            </ChakraProvider>
-          </OrderWrapper>
-        </AdminProtectedRoute>
+              </AdminProtectedRoute>
+            </div>
+          </ChakraProvider>
+        </OrderWrapper>
       </UserWrapper>
     </ApolloProvider>
   );

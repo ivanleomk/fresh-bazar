@@ -24,7 +24,10 @@ const MobileSidebar = ({ isOpen, onClose }) => {
     signOut()
       .then((e) => {
         setUser(null);
+        localStorage.removeItem("cognito_role");
+        localStorage.removeItem("cognito_token");
         onClose();
+
         produceToast(toast, "success", "Success!", "Succesfully signed out.");
       })
       .catch((err) => console.log("Error : " + err));

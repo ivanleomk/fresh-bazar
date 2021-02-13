@@ -20,9 +20,6 @@ import { extract_tags_from_list } from "../app/methods/items";
 //Hooks
 import useWindowSize from "../app/hooks/useWindowDimensions";
 
-//Next Auth Imports
-import { signIn, signOut, useSession } from "next-auth/client";
-
 //Breakpoint Stuff
 import {
   SMALL_LAPTOP_BREAKPOINT,
@@ -33,7 +30,7 @@ import {
 import { ALL_ITEMS_QUERY } from "../app/queries/getItems";
 
 //Apollo Imports
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useUserContext } from "../app/context/UserContext";
 
 export default function Home() {
@@ -41,9 +38,11 @@ export default function Home() {
   const [items, setItems] = useState([]);
   const [categories, setCategories] = React.useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   const { loading, error, data } = useQuery(ALL_ITEMS_QUERY);
+
   const { user } = useUserContext();
-  console.log(user);
+
   let { width } = useWindowSize();
 
   useEffect(() => {
@@ -54,7 +53,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!loading) {
-      let newData = data["item"]
+      let newData = data?.["item"]
         .map(({ __typename, ...item }) => item)
         .map((item) => {
           return {
@@ -68,11 +67,6 @@ export default function Home() {
       console.log(newData);
     }
   }, [loading]);
-
-  const handleSignIn = () => {
-    console.log("Signing in!");
-    signIn();
-  };
 
   return (
     <>
@@ -137,7 +131,6 @@ export default function Home() {
                   <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
                     Categories
                   </h2>
-                  <button onClick={handleSignIn}>Sign In</button>
 
                   <div className="flex-col flex">
                     {categories.map((item) => (
@@ -154,15 +147,14 @@ export default function Home() {
           ) : null}
           <div className="col-span-4 lg:col-span-4 mx-4">
             <ul className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-6">
-              {items
-                .filter(
-                  (item) =>
-                    !selectedCategory ||
-                    item.item_categories.includes(selectedCategory)
-                )
-                .map((item) => (
-                  <FoodCard item={item} />
-                ))}
+              {items &&
+                items
+                  .filter(
+                    (item) =>
+                      !selectedCategory ||
+                      item.item_categories.includes(selectedCategory)
+                  )
+                  .map((item) => <FoodCard item={item} />)}
             </ul>
           </div>
         </div>

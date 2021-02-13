@@ -20,14 +20,14 @@ import { validateEmail } from "../app/helperFunctions/validateEmail";
 import { useRouter } from "next/router";
 import PasswordResetModal from "../app/components/PasswordResetModal";
 import { Auth } from "aws-amplify";
+import { ADMIN, CUSTOMER, GRAPHQL_URL } from "../app/constants/graphql";
 
 const Login = () => {
   const {
     setUser,
-    user,
     signIn,
-    signUp,
     resendConfirmationCode,
+    updateHasuraCustomerDirectory,
   } = useUserContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [unconfirmed, setUnconfirmed] = useState(false);
@@ -56,6 +56,7 @@ const Login = () => {
         );
       })
       .catch((err) => {
+        console.log(err);
         produceToast(toast, "warning", "Error!", err.message);
       });
   };
@@ -77,12 +78,29 @@ const Login = () => {
       .then((authUser) => {
         produceToast(toast, "success", "Success!", "Redirecting you now");
         const userEmail = authUser.attributes.email;
-        const jwtToken = authUser.signInUserSession.accessToken.jwtToken;
+        const jwtToken = authUser.signInUserSession.idToken.jwtToken;
+
+        Auth.currentSession().then((res) => {
+          let accessToken = res.getAccessToken();
+          let jwt = accessToken.getJwtToken();
+          console.log(jwt);
+        });
+
         const cognitoGroup =
           authUser.signInUserSession.accessToken.payload["cognito:groups"];
-        const userPermissions = cognitoGroup ? cognitoGroup[0] : "customer";
+        const userPermissions = cognitoGroup ? ADMIN : CUSTOMER;
         const userData = { userEmail, jwtToken, userPermissions };
+
+        console.log(authUser);
+
+        //Set User Data
         setUser(userData);
+
+        //Update Database with new user. Use upsert to prevent conflict
+        updateHasuraCustomerDirectory(userEmail, userPermissions);
+        localStorage.setItem("cognito_token", jwtToken);
+        localStorage.setItem("cognito_role", userPermissions);
+        localStorage.setItem("cognito_email", userEmail);
         redirectToHome();
       })
       .catch((err) => {
@@ -99,7 +117,7 @@ const Login = () => {
           setUnconfirmed(true);
           return;
         }
-        console.log(err);
+
         produceToast(toast, "warning", "Warning!", err.message);
       });
   };
