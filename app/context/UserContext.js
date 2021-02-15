@@ -155,14 +155,6 @@ export function UserWrapper({ children }) {
     return;
   };
 
-  // docker run -p 8080:8080 \
-  //   hasura/graphql-engine:latest \
-  //   graphql-engine \
-  //   --database-url postgres://postgres:oVd!y9GVCQaCzjKKFU@production-database-1.cmblq0ldx2xc.ap-southeast-1.rds.amazonaws.com:5432/postgres \
-  //   serve \
-  //   --admin-secret mylongsecretaccesskey \
-  //   --jwt-secret {"type":"RS256","jwk_url": "https://cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_96HXwKP99/.well-known/jwks.json","claims_format": "stringified_json"}
-
   let sharedState = {
     user,
     isAuthenticated: !(user === null),
